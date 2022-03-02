@@ -4,6 +4,7 @@
   "private": true,
   "devDependencies": {
     "cross-env": "^7.0.3",
+    "cypress": "^9.5.1",
     "react-scripts": "^4.0.3",
     "redux-devtools-extension": "^2.13.9"
   },
