@@ -1,12 +1,19 @@
 {
-  "name": "react-redux-realworld-example-app",
-  "version": "0.1.0",
+  "name": "realworld",
+  "version": "1.0.0",
+  "description": "Fork of realworld app to show full e2e code coverage",
   "private": true,
+  "main": "index.js",
+  "engines": {
+    "node": "v16.14.0"
+  },
   "devDependencies": {
     "cross-env": "^7.0.3",
     "cypress": "^9.5.1",
     "react-scripts": "^4.0.3",
-    "redux-devtools-extension": "^2.13.9"
+    "redux-devtools-extension": "^2.13.9",
+    "@cypress/code-coverage": "1.12.2",
+    "start-server-and-test": "1.10.8"
   },
   "dependencies": {
     "connected-react-router": "^6.9.1",
@@ -26,8 +33,12 @@
   "scripts": {
     "start": "cross-env PORT=4100 react-scripts start",
     "build": "react-scripts build",
-    "test": "cross-env PORT=4100 react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "test": "start-test start 4100 cypress:test",
+    "test:coverage": "start-test start:coverage 4100 cypress:test",
+    "eject": "react-scripts eject",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "cypress:test": "cypress run -s 'cypress/integration/**/*-spec.js'"
   },
   "browserslist": [
     ">0.2%",
