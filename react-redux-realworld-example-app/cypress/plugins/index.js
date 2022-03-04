@@ -1,22 +1,75 @@
-/// <reference types="cypress" />
-// ***********************************************************
-// This example plugins/index.js can be used to load plugins
-//
-// You can change the location of this file or turn off loading
-// the plugins file with the 'pluginsFile' configuration option.
-//
-// You can read more here:
-// https://on.cypress.io/plugins-guide
-// ***********************************************************
+const { join } = require('path')
+const knexFactory = require('knex')
 
-// This function is called when a project is opened or re-opened (e.g. due to
-// the project's config changing)
-
-/**
- * @type {Cypress.PluginConfig}
- */
-// eslint-disable-next-line no-unused-vars
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
+
+  // tasks for code coverage
+  on('task', require('@cypress/code-coverage/task'))
+
+  // tasks for resetting database during tests
+  on('task', {
+    cleanDatabase () {
+      const filename = join(__dirname, '..', '..', 'server', '.tmp.db')
+      const knex = knexFactory({
+        client: 'sqlite3',
+        connection: {
+          filename
+        },
+        useNullAsDefault: true
+      })
+      // if we are trying to truncate a non-existing table
+      // that is ok - the server API will create them
+      const onError = err =>
+        err.toString().includes('no such table') ? null : Promise.reject(err)
+
+      // truncates all tables which removes data left by previous tests
+      return Promise.all([
+        knex
+          .truncate('Users')
+          .catch(err =>
+            err.toString().includes('no such table')
+              ? undefined
+              : Promise.reject(err)
+          ),
+        knex
+          .truncate('Articles')
+          .catch(err =>
+            err.toString().includes('no such table')
+              ? undefined
+              : Promise.reject(err)
+          ),
+        knex
+          .truncate('ArticleTags')
+          .catch(err =>
+            err.toString().includes('no such table')
+              ? undefined
+              : Promise.reject(err)
+          ),
+        knex
+          .truncate('Comments')
+          .catch(err =>
+            err.toString().includes('no such table')
+              ? undefined
+              : Promise.reject(err)
+          ),
+        knex
+          .truncate('Followers')
+          .catch(err =>
+            err.toString().includes('no such table')
+              ? undefined
+              : Promise.reject(err)
+          ),
+        knex
+          .truncate('ArticleFavorites')
+          .catch(err =>
+            err.toString().includes('no such table')
+              ? undefined
+              : Promise.reject(err)
+          )
+      ])
+    },
+    registerNewUserIfNeeded () {}
+  })
 }
