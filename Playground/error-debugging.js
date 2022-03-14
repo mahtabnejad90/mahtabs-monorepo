@@ -13,3 +13,4 @@ let outputObject = () => {
 outputObject();
 
 console.log('Script has completed');
+
