@@ -13,7 +13,7 @@ console.log(typeof firstFunction);
 
 /* syntax of functions */
 
-// Classic function (Classic Vanilla JS)
+// Classic function (Classic Vanilla JS - prior ES6)
 
 let classicFunctionSyntax = function() {
     console.log('I am a \'classic\' function');
@@ -26,5 +26,36 @@ classicFunctionSyntax();
 let esSixFunction = () => {
     console.log('I am an ES6 function')
 }
-esSixFunction()
+esSixFunction();
 
+// adding a return
+/*  
+    The return statement stops the execution of a function and 
+    returns a value.
+*/
+
+
+let aFunctionWithAReturn = () => {
+    let varX = 5;
+    let varY = 10;
+    let result = varX * varY;
+
+    return result;
+}
+
+let outputOfFunction = aFunctionWithAReturn();
+
+console.log('The number is: ' + outputOfFunction);
+
+ let parameterFunctions = (varX, varY) => {
+     let result = varX * varY;
+     return result;
+ }
+
+ let outputOfParamFunction = parameterFunctions(30, 50);
+
+    console.log('The value is: ' + outputOfParamFunction);
+
+ outputOfParamFunction = parameterFunctions(0.75, 0.5);
+
+    console.log('The value is: ' + outputOfParamFunction);
