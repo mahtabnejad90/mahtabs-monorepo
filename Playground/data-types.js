@@ -73,3 +73,13 @@ console.log(mixedArray[2]);
 console.log(mixedArray[3]);
 console.log(mixedArray[4]);
 console.log(mixedArray[5]);
+
+/*
+typeof outputs the type of data the value in the variable is
+*/
+
+let randomStringValue = 'Mahtab';
+let randomNumberValue = 10;
+
+console.log(typeof randomStringValue);
+console.log(typeof randomNumberValue);
